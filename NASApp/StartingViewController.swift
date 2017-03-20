@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  StartingViewController.swift
 //  NASApp
 //
 //  Created by Andrea Miotto on 20/03/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class StartingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,21 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    
+    @IBAction func collisionAction(_ sender: Any) {
+        print("Checking for collisions...")
+    }
+    
+    
+    @IBAction func marsAction(_ sender: Any) {
+        print("Connecting to the rover...")
+    }
 
+    @IBAction func earthAction(_ sender: Any) {
+        print("Connecting to the satellite...")
+    }
 
 }
 

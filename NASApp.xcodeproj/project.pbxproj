@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		013BB8AB1E7FE151006682D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8AA1E7FE151006682D5 /* AppDelegate.swift */; };
-		013BB8AD1E7FE151006682D5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8AC1E7FE151006682D5 /* ViewController.swift */; };
+		013BB8AD1E7FE151006682D5 /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8AC1E7FE151006682D5 /* StartingViewController.swift */; };
 		013BB8B01E7FE151006682D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8AE1E7FE151006682D5 /* Main.storyboard */; };
-		013BB8B21E7FE151006682D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8B11E7FE151006682D5 /* Assets.xcassets */; };
 		013BB8B51E7FE151006682D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8B31E7FE151006682D5 /* LaunchScreen.storyboard */; };
 		013BB8C01E7FE151006682D5 /* NASAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8BF1E7FE151006682D5 /* NASAppTests.swift */; };
 		013BB8CB1E7FE151006682D5 /* NASAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8CA1E7FE151006682D5 /* NASAppUITests.swift */; };
+		013BB8D91E803DF3006682D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8D81E803DF3006682D5 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,9 +36,8 @@
 /* Begin PBXFileReference section */
 		013BB8A71E7FE151006682D5 /* NASApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NASApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		013BB8AA1E7FE151006682D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		013BB8AC1E7FE151006682D5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		013BB8AC1E7FE151006682D5 /* StartingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingViewController.swift; sourceTree = "<group>"; };
 		013BB8AF1E7FE151006682D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		013BB8B11E7FE151006682D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		013BB8B41E7FE151006682D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		013BB8B61E7FE151006682D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		013BB8BB1E7FE151006682D5 /* NASAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NASAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +46,7 @@
 		013BB8C61E7FE151006682D5 /* NASAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NASAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		013BB8CA1E7FE151006682D5 /* NASAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASAppUITests.swift; sourceTree = "<group>"; };
 		013BB8CC1E7FE151006682D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		013BB8D81E803DF3006682D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +98,12 @@
 			isa = PBXGroup;
 			children = (
 				013BB8AA1E7FE151006682D5 /* AppDelegate.swift */,
-				013BB8AC1E7FE151006682D5 /* ViewController.swift */,
-				013BB8AE1E7FE151006682D5 /* Main.storyboard */,
-				013BB8B11E7FE151006682D5 /* Assets.xcassets */,
-				013BB8B31E7FE151006682D5 /* LaunchScreen.storyboard */,
 				013BB8B61E7FE151006682D5 /* Info.plist */,
+				013BB8DD1E804B1F006682D5 /* Helpers */,
+				013BB8DC1E804B17006682D5 /* Controller */,
+				013BB8DB1E804B11006682D5 /* Model */,
+				013BB8DA1E804B07006682D5 /* View */,
+				013BB8D81E803DF3006682D5 /* Assets.xcassets */,
 			);
 			path = NASApp;
 			sourceTree = "<group>";
@@ -123,6 +124,37 @@
 				013BB8CC1E7FE151006682D5 /* Info.plist */,
 			);
 			path = NASAppUITests;
+			sourceTree = "<group>";
+		};
+		013BB8DA1E804B07006682D5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				013BB8AE1E7FE151006682D5 /* Main.storyboard */,
+				013BB8B31E7FE151006682D5 /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		013BB8DB1E804B11006682D5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		013BB8DC1E804B17006682D5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				013BB8AC1E7FE151006682D5 /* StartingViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		013BB8DD1E804B1F006682D5 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,7 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				013BB8B51E7FE151006682D5 /* LaunchScreen.storyboard in Resources */,
-				013BB8B21E7FE151006682D5 /* Assets.xcassets in Resources */,
+				013BB8D91E803DF3006682D5 /* Assets.xcassets in Resources */,
 				013BB8B01E7FE151006682D5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,7 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				013BB8AD1E7FE151006682D5 /* ViewController.swift in Sources */,
+				013BB8AD1E7FE151006682D5 /* StartingViewController.swift in Sources */,
 				013BB8AB1E7FE151006682D5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +544,7 @@
 				013BB8D11E7FE151006682D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		013BB8D21E7FE151006682D5 /* Build configuration list for PBXNativeTarget "NASAppTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +553,7 @@
 				013BB8D41E7FE151006682D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		013BB8D51E7FE151006682D5 /* Build configuration list for PBXNativeTarget "NASAppUITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +562,7 @@
 				013BB8D71E7FE151006682D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
