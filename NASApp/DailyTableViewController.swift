@@ -11,25 +11,9 @@ import Alamofire
 
 class DailyTableViewController: UITableViewController {
     
-    var dailyImage: UIImage? {
-        didSet {
-            self.imageView.image = dailyImage
-            self.tableView.reloadData()
-        }
-    }
+    var daily: Daily?
     
-    var dailyTitle: String? {
-        didSet {
-            self.titleLabel.text = dailyTitle
-        }
-    }
-    
-    var dailyExplanation: String? {
-        didSet {
-            self.explanationLabel.text = dailyExplanation
-            self.tableView.reloadData()
-        }
-    }
+ 
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -37,8 +21,8 @@ class DailyTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        setLayout()
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,6 +48,12 @@ class DailyTableViewController: UITableViewController {
         return UITableViewAutomaticDimension
     }
     
-    // MARK: - NETWORKING
+    // MARK: - Methods
+    
+    func setLayout() {
+        self.titleLabel.text = daily?.title
+        self.imageView.image = daily?.image
+        self.explanationLabel.text = daily?.explanation
+    }
 
 }

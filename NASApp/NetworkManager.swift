@@ -44,13 +44,31 @@ class NetworkManager {
             case .success(let value):
                 completion(value)
                 
-                /* Update the cell
-                DispatchQueue.main.async(execute: {
-                    //FIXME: we need to update the cell with the just downloaded image
-                    cell.poster.image = image
-                })
-                */
-                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    class func fetchAsteroids(completion: @escaping (JSON) -> ()) {
+        
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let start_date = formatter.string(from: date)
+        let time = TimeInterval(60*60*24*7)
+        let end_date = formatter.string(from: date.addingTimeInterval(time))
+        
+        //let end_date = start_date + 7
+        //Setting the url for the request
+        let url = "\(base_url)neo/rest/v1/feed?start_date=\(start_date)&end_date=\(end_date)&detailed=false&api_key=\(apy_key)"
+        //Making the request
+        Alamofire.request(url, method: .get).validate().responseJSON{ response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                completion(json)
+            //print("JSON: \(json)")
             case .failure(let error):
                 print(error)
             }

@@ -12,6 +12,13 @@ import AlamofireImage
 class LandingTableViewController: UITableViewController {
     
     let imageCache = AutoPurgingImageCache()
+    
+    var daily = Daily()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchingDaily()
+        fetchingAsteroids()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +29,8 @@ class LandingTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,29 +107,52 @@ class LandingTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDaily" {
             if let nextVC = segue.destination as? DailyTableViewController {
-                NetworkManager.fetchDaily {json in
-                    //print(json)
-                    let imageULR = json["url"].stringValue
- 
-                    nextVC.dailyTitle = json["title"].stringValue
-                    nextVC.dailyExplanation = json["explanation"].stringValue
-                    
-                    // Fetch the image cache
-                    let id = self.getDate()
-                    
-                    if let cachedImage = self.imageCache.image(for: URLRequest(url: URL(string: imageULR)!), withIdentifier: id) {
-                        print("image fetched from the cache")
-                        nextVC.dailyImage = cachedImage
-                    } else {
-                        NetworkManager.fetchImage(url: imageULR, withIdentifier: id, completion: { image in
-                            // Add to the cache
-                            print("image added to the cache")
-                            self.imageCache.add(image, for: URLRequest(url: URL(string: imageULR)!), withIdentifier: id)
-                            nextVC.dailyImage = image
-                        })
-                    }
-                }
+                nextVC.daily = self.daily
             }
+        }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "showDaily" {
+            if (self.daily.image == nil || self.daily.title == nil || self.daily.explanation == nil) {
+                displayAlert(title: "Fetching Data", message: "We are moving the satellites for you, retry in a moment!")
+                return false
+            }
+            return true
+        }
+        
+        // by default, transition
+        return true
+    }
+    
+    func fetchingDaily() {
+        NetworkManager.fetchDaily {json in
+            //print(json)
+            let imageULR = json["url"].stringValue
+            
+            self.daily.title = json["title"].stringValue
+            self.daily.explanation = json["explanation"].stringValue
+            
+            // Fetch the image cache
+            let id = self.getDate()
+            
+            if let cachedImage = self.imageCache.image(for: URLRequest(url: URL(string: imageULR)!), withIdentifier: id) {
+                print("daily image fetched from the cache")
+                self.daily.image = cachedImage
+            } else {
+                NetworkManager.fetchImage(url: imageULR, withIdentifier: id, completion: { image in
+                    // Add to the cache
+                    print("daily image added to the cache")
+                    self.imageCache.add(image, for: URLRequest(url: URL(string: imageULR)!), withIdentifier: id)
+                    self.daily.image = image
+                })
+            }
+        }
+    }
+    
+    func fetchingAsteroids() {
+        NetworkManager.fetchAsteroids { json in
+            print(json)
         }
     }
     
@@ -134,6 +166,16 @@ class LandingTableViewController: UITableViewController {
             
         //updating the title
         return formatter.string(from: date)
+    }
+    
+    /**This func will display an Alert */
+    func displayAlert(title: String, message: String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(action)
+        
+        present(alertController, animated: true, completion: nil)
     }
 
 }

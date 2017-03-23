@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-struct Daily {
+class Daily {
     var image: UIImage?
     var title: String?
     var explanation: String?
