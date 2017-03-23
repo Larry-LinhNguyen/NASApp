@@ -7,13 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		011F547D1E83CC8300174326 /* LandingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011F547C1E83CC8300174326 /* LandingTableViewController.swift */; };
+		011F547F1E83D1C400174326 /* DailyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011F547E1E83D1C400174326 /* DailyTableViewController.swift */; };
+		011F54811E83DD7F00174326 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011F54801E83DD7F00174326 /* NetworkManager.swift */; };
+		011F54851E83E37100174326 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011F54841E83E37100174326 /* Models.swift */; };
 		013BB8AB1E7FE151006682D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8AA1E7FE151006682D5 /* AppDelegate.swift */; };
-		013BB8AD1E7FE151006682D5 /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8AC1E7FE151006682D5 /* StartingViewController.swift */; };
 		013BB8B01E7FE151006682D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8AE1E7FE151006682D5 /* Main.storyboard */; };
 		013BB8B51E7FE151006682D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8B31E7FE151006682D5 /* LaunchScreen.storyboard */; };
 		013BB8C01E7FE151006682D5 /* NASAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8BF1E7FE151006682D5 /* NASAppTests.swift */; };
 		013BB8CB1E7FE151006682D5 /* NASAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8CA1E7FE151006682D5 /* NASAppUITests.swift */; };
 		013BB8D91E803DF3006682D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8D81E803DF3006682D5 /* Assets.xcassets */; };
+		01AF109A1E83C7FE009A555C /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AF10981E83C7FE009A555C /* Alamofire.framework */; };
+		01AF109B1E83C7FE009A555C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AF10991E83C7FE009A555C /* SwiftyJSON.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +39,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		011F547C1E83CC8300174326 /* LandingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingTableViewController.swift; sourceTree = "<group>"; };
+		011F547E1E83D1C400174326 /* DailyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTableViewController.swift; sourceTree = "<group>"; };
+		011F54801E83DD7F00174326 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		011F54841E83E37100174326 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		013BB8A71E7FE151006682D5 /* NASApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NASApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		013BB8AA1E7FE151006682D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		013BB8AC1E7FE151006682D5 /* StartingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingViewController.swift; sourceTree = "<group>"; };
 		013BB8AF1E7FE151006682D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		013BB8B41E7FE151006682D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		013BB8B61E7FE151006682D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +55,8 @@
 		013BB8CA1E7FE151006682D5 /* NASAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASAppUITests.swift; sourceTree = "<group>"; };
 		013BB8CC1E7FE151006682D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		013BB8D81E803DF3006682D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		01AF10981E83C7FE009A555C /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		01AF10991E83C7FE009A555C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01AF109A1E83C7FE009A555C /* Alamofire.framework in Frameworks */,
+				01AF109B1E83C7FE009A555C /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +93,7 @@
 				013BB8BE1E7FE151006682D5 /* NASAppTests */,
 				013BB8C91E7FE151006682D5 /* NASAppUITests */,
 				013BB8A81E7FE151006682D5 /* Products */,
+				01AF10971E83C7FE009A555C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,6 +151,7 @@
 		013BB8DB1E804B11006682D5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				011F54841E83E37100174326 /* Models.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -145,7 +159,8 @@
 		013BB8DC1E804B17006682D5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				013BB8AC1E7FE151006682D5 /* StartingViewController.swift */,
+				011F547C1E83CC8300174326 /* LandingTableViewController.swift */,
+				011F547E1E83D1C400174326 /* DailyTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -153,8 +168,18 @@
 		013BB8DD1E804B1F006682D5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				011F54801E83DD7F00174326 /* NetworkManager.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		01AF10971E83C7FE009A555C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01AF10981E83C7FE009A555C /* Alamofire.framework */,
+				01AF10991E83C7FE009A555C /* SwiftyJSON.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,6 +192,7 @@
 				013BB8A31E7FE151006682D5 /* Sources */,
 				013BB8A41E7FE151006682D5 /* Frameworks */,
 				013BB8A51E7FE151006682D5 /* Resources */,
+				01AF109C1E83C83E009A555C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -289,13 +315,34 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		01AF109C1E83C83E009A555C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		013BB8A31E7FE151006682D5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				013BB8AD1E7FE151006682D5 /* StartingViewController.swift in Sources */,
+				011F54811E83DD7F00174326 /* NetworkManager.swift in Sources */,
+				011F547D1E83CC8300174326 /* LandingTableViewController.swift in Sources */,
 				013BB8AB1E7FE151006682D5 /* AppDelegate.swift in Sources */,
+				011F547F1E83D1C400174326 /* DailyTableViewController.swift in Sources */,
+				011F54851E83E37100174326 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +493,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 23536XD8LD;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = NASApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "AndreaMiotto-com.github.NASApp";
@@ -459,6 +510,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 23536XD8LD;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = NASApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "AndreaMiotto-com.github.NASApp";
