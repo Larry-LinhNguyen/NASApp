@@ -10,11 +10,35 @@ import UIKit
 import Alamofire
 
 class DailyTableViewController: UITableViewController {
+    
+    var dailyImage: UIImage? {
+        didSet {
+            print(dailyImage)
+            self.imageView.image = dailyImage
+            self.tableView.reloadData()
+        }
+    }
+    
+    var dailyTitle: String? {
+        didSet {
+            self.titleLabel.text = dailyTitle
+        }
+    }
+    
+    var dailyExplanation: String? {
+        didSet {
+            self.explanationLabel.text = dailyExplanation
+            self.tableView.reloadData()
+        }
+    }
 
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var explanationLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getDaily()
+        
         
     }
 
@@ -42,13 +66,5 @@ class DailyTableViewController: UITableViewController {
     }
     
     // MARK: - NETWORKING
-    
-    func getDaily() {
-        let json = NetworkManager.getDaily()
-        print(json)
-    }
-
-    
-    
 
 }

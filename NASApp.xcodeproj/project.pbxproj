@@ -11,6 +11,7 @@
 		011F547F1E83D1C400174326 /* DailyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011F547E1E83D1C400174326 /* DailyTableViewController.swift */; };
 		011F54811E83DD7F00174326 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011F54801E83DD7F00174326 /* NetworkManager.swift */; };
 		011F54851E83E37100174326 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011F54841E83E37100174326 /* Models.swift */; };
+		011F54871E83FADB00174326 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 011F54861E83FADB00174326 /* AlamofireImage.framework */; };
 		013BB8AB1E7FE151006682D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8AA1E7FE151006682D5 /* AppDelegate.swift */; };
 		013BB8B01E7FE151006682D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8AE1E7FE151006682D5 /* Main.storyboard */; };
 		013BB8B51E7FE151006682D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8B31E7FE151006682D5 /* LaunchScreen.storyboard */; };
@@ -43,6 +44,7 @@
 		011F547E1E83D1C400174326 /* DailyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTableViewController.swift; sourceTree = "<group>"; };
 		011F54801E83DD7F00174326 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		011F54841E83E37100174326 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		011F54861E83FADB00174326 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		013BB8A71E7FE151006682D5 /* NASApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NASApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		013BB8AA1E7FE151006682D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		013BB8AF1E7FE151006682D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			files = (
 				01AF109A1E83C7FE009A555C /* Alamofire.framework in Frameworks */,
 				01AF109B1E83C7FE009A555C /* SwiftyJSON.framework in Frameworks */,
+				011F54871E83FADB00174326 /* AlamofireImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +179,7 @@
 		01AF10971E83C7FE009A555C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				011F54861E83FADB00174326 /* AlamofireImage.framework */,
 				01AF10981E83C7FE009A555C /* Alamofire.framework */,
 				01AF10991E83C7FE009A555C /* SwiftyJSON.framework */,
 			);
@@ -324,6 +328,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AlamofireImage.framework",
 			);
 			outputPaths = (
 			);

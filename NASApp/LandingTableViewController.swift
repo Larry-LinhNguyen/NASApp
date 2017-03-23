@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class LandingTableViewController: UITableViewController {
+    
+    let imageCache = AutoPurgingImageCache()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,5 +95,45 @@ class LandingTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDaily" {
+            if let nextVC = segue.destination as? DailyTableViewController {
+                NetworkManager.fetchDaily {json in
+                    //print(json)
+                    let imageULR = json["url"].stringValue
+ 
+                    nextVC.dailyTitle = json["title"].stringValue
+                    nextVC.dailyExplanation = json["explanation"].stringValue
+                    
+                    // Fetch the image cache
+                    let id = self.getDate()
+                    
+                    if let cachedImage = self.imageCache.image(for: URLRequest(url: URL(string: imageULR)!), withIdentifier: id) {
+                        print("image fetched from the cache")
+                        nextVC.dailyImage = cachedImage
+                    } else {
+                        NetworkManager.fetchImage(url: imageULR, withIdentifier: id, completion: { image in
+                            // Add to the cache
+                            print("image added to the cache")
+                            self.imageCache.add(image, for: URLRequest(url: URL(string: imageULR)!), withIdentifier: id)
+                            nextVC.dailyImage = image
+                        })
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func getDate() -> String {
+        let date = Date()
+        //creating the formatter and choosing the styles
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+            
+        //updating the title
+        return formatter.string(from: date)
+    }
 
 }

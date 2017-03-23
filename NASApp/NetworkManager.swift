@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import UIKit
+import AlamofireImage
 
 class NetworkManager {
     
@@ -20,7 +22,7 @@ class NetworkManager {
 
     
     // MARK: - Connections
-    class func getDaily(response: (JSON) -> ()) {
+    class func fetchDaily(completion: @escaping (JSON) -> ()) {
         //Setting the url for the request
         let url = "\(base_url)planetary/apod?api_key=\(apy_key)"
         //Making the request
@@ -28,8 +30,27 @@ class NetworkManager {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                response(json)
+                completion(json)
                 //print("JSON: \(json)")
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    class func fetchImage(url: String, withIdentifier: String, completion: @escaping (UIImage) -> ()) {
+        Alamofire.request(url).responseImage { response in
+            switch response.result {
+            case .success(let value):
+                completion(value)
+                
+                /* Update the cell
+                DispatchQueue.main.async(execute: {
+                    //FIXME: we need to update the cell with the just downloaded image
+                    cell.poster.image = image
+                })
+                */
+                
             case .failure(let error):
                 print(error)
             }
