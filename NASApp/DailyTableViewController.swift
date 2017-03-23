@@ -13,7 +13,6 @@ class DailyTableViewController: UITableViewController {
     
     var dailyImage: UIImage? {
         didSet {
-            print(dailyImage)
             self.imageView.image = dailyImage
             self.tableView.reloadData()
         }
