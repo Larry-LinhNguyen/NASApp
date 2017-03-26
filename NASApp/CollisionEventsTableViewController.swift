@@ -9,6 +9,8 @@
 import UIKit
 
 class CollisionEventsTableViewController: UITableViewController {
+    
+    var asteroids : [Asteroid] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,24 +31,34 @@ class CollisionEventsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return asteroids.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CollisionTableViewCell
+        let asteroid = self.asteroids[indexPath.row]
+        configureCell(cell: cell, withEntry: asteroid)
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "APPROACHING ASTEROIDS"
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(1)
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white.withAlphaComponent(0.4)
+        (view as! UITableViewHeaderFooterView).textLabel?.font = UIFont(name: "Helvetica", size: 15)
+    }
+
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -92,5 +104,19 @@ class CollisionEventsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    /**This func will style the cell prperly */
+    func configureCell(cell: CollisionTableViewCell, withEntry entry: Asteroid) {
+        
+        //setting the easy stuff
+        cell.nameLabel.text = entry.name
+        cell.dateLabel.text = entry.approachDate
+        if !entry.hazardous {
+            cell.hazardousLabel.isHidden = true
+        } else {
+            cell.hazardousLabel.isHidden = false
+        }
+    }
 
 }

@@ -90,7 +90,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <segue destination="tDH-Y6-QWS" kind="show" id="Jqh-IB-A8V"/>
+                                            <segue destination="tDH-Y6-QWS" kind="show" identifier="showCollisions" id="Jqh-IB-A8V"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="0LB-lV-rHC">
@@ -278,8 +278,9 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="bVk-Y4-RzD">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="bVk-Y4-RzD" customClass="CollisionTableViewCell" customModule="NASApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bVk-Y4-RzD" id="bZZ-0i-yr4">
@@ -300,7 +301,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="Oqc-Wa-UOC"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
+                                            <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="15"/>
                                             <color key="textColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -310,7 +311,7 @@
                                                 <constraint firstAttribute="width" constant="100" id="3Ov-yY-fU7"/>
                                                 <constraint firstAttribute="height" constant="21" id="XmG-uN-x5v"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
+                                            <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="15"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -327,6 +328,11 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dateLabel" destination="u7A-6Q-h3o" id="0le-Gy-hgE"/>
+                                    <outlet property="hazardousLabel" destination="rnx-V7-Cte" id="8wh-lQ-cRV"/>
+                                    <outlet property="nameLabel" destination="bRK-Fu-ljG" id="2F1-Fa-F4x"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

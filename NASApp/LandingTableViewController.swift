@@ -111,11 +111,25 @@ class LandingTableViewController: UITableViewController {
                 nextVC.daily = self.daily
             }
         }
+        
+        if segue.identifier == "showCollisions" {
+            if let nextVC = segue.destination as? CollisionEventsTableViewController {
+                nextVC.asteroids = self.asteroids
+            }
+        }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "showDaily" {
             if (self.daily?.image == nil || self.daily?.title == nil || self.daily?.explanation == nil) {
+                displayAlert(title: "Fetching Data", message: "We are moving the satellites for you, retry in a moment!")
+                return false
+            }
+            return true
+        }
+        
+        if identifier == "showCollisions" {
+            if (self.asteroids.count < 1) {
                 displayAlert(title: "Fetching Data", message: "We are moving the satellites for you, retry in a moment!")
                 return false
             }
@@ -141,24 +155,19 @@ class LandingTableViewController: UITableViewController {
     
     func fetchingAsteroids() {
         NetworkManager.fetchAsteroids { json in
-            //print(json)
             let objects = json["near_earth_objects"].dictionaryValue
             print(objects.count)
             for objectsByDate in objects {
-                //Convert into an array
-                let arrayOfObjectsByDate = objectsByDate.value.arrayValue
-                for object in arrayOfObjectsByDate {
+                let flatted = objectsByDate.value.flatMap { $0 }
+                for object in flatted {
                     do {
-                        print(object)
-                        //try self.asteroids.append(Asteroid(json: object))
-                        //print(self.asteroids)
+                        try self.asteroids.append(Asteroid(json: object.1))
                     } catch let error {
                         self.displayAlert(title: "Error", message: "\(error)")
                     }
                 }
                 
             }
-            
 
         }
     }

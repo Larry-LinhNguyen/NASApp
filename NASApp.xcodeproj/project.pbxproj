@@ -21,6 +21,7 @@
 		013BB8D91E803DF3006682D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8D81E803DF3006682D5 /* Assets.xcassets */; };
 		01AF109A1E83C7FE009A555C /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AF10981E83C7FE009A555C /* Alamofire.framework */; };
 		01AF109B1E83C7FE009A555C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AF10991E83C7FE009A555C /* SwiftyJSON.framework */; };
+		01D474461E88228000D90C81 /* CollisionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D474451E88228000D90C81 /* CollisionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		013BB8D81E803DF3006682D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01AF10981E83C7FE009A555C /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		01AF10991E83C7FE009A555C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		01D474451E88228000D90C81 /* CollisionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				011F547C1E83CC8300174326 /* LandingTableViewController.swift */,
+				01D474451E88228000D90C81 /* CollisionTableViewCell.swift */,
 				011F547E1E83D1C400174326 /* DailyTableViewController.swift */,
 				011F548C1E8425F000174326 /* CollisionEventsTableViewController.swift */,
 			);
@@ -349,6 +352,7 @@
 				011F54811E83DD7F00174326 /* NetworkManager.swift in Sources */,
 				011F547D1E83CC8300174326 /* LandingTableViewController.swift in Sources */,
 				013BB8AB1E7FE151006682D5 /* AppDelegate.swift in Sources */,
+				01D474461E88228000D90C81 /* CollisionTableViewCell.swift in Sources */,
 				011F547F1E83D1C400174326 /* DailyTableViewController.swift in Sources */,
 				011F54851E83E37100174326 /* Models.swift in Sources */,
 				011F548D1E8425F000174326 /* CollisionEventsTableViewController.swift in Sources */,
