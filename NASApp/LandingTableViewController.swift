@@ -8,14 +8,17 @@
 
 import UIKit
 import AlamofireImage
+import SwiftyJSON
 
 class LandingTableViewController: UITableViewController {
     
     var daily: Daily?
+    var asteroids: [Asteroid] = []
+    
     
     override func viewWillAppear(_ animated: Bool) {
         fetchingDaily()
-        //fetchingAsteroids()
+        fetchingAsteroids()
     }
 
     override func viewDidLoad() {
@@ -138,7 +141,25 @@ class LandingTableViewController: UITableViewController {
     
     func fetchingAsteroids() {
         NetworkManager.fetchAsteroids { json in
-            print(json)
+            //print(json)
+            let objects = json["near_earth_objects"].dictionaryValue
+            print(objects.count)
+            for objectsByDate in objects {
+                //Convert into an array
+                let arrayOfObjectsByDate = objectsByDate.value.arrayValue
+                for object in arrayOfObjectsByDate {
+                    do {
+                        print(object)
+                        //try self.asteroids.append(Asteroid(json: object))
+                        //print(self.asteroids)
+                    } catch let error {
+                        self.displayAlert(title: "Error", message: "\(error)")
+                    }
+                }
+                
+            }
+            
+
         }
     }
     

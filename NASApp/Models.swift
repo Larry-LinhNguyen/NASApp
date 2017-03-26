@@ -25,6 +25,9 @@ enum NASAPPError: Error {
     case CantLoadData(String)
 }
 
+
+
+
 // MARK: - Daily Model
 
 class Daily: JSONDecodable {
@@ -42,7 +45,10 @@ class Daily: JSONDecodable {
     }
     
     required convenience init(json: JSON) throws {
-        guard let title = json["title"].string, let imageURL = json["url"].string, let explanation = json["explanation"].string else {
+        guard let title = json["title"].string,
+            let imageURL = json["url"].string,
+            let explanation = json["explanation"].string else {
+                
             throw NASAPPError.NoDecodable("At least one of the properties in not decodable, be sure the decoding pattern matches to the API schema")
         }
         
@@ -65,6 +71,46 @@ extension Daily {
                 self.image = image
             })
         }
-
     }
 }
+
+
+// MARK: - Asteroid Model
+
+
+struct Asteroid {
+    
+    let name: String
+    let hazardous: Bool
+    let approachDate: String
+    let absoluteMagnitude: Double
+    let estimetedDiameter: (Double, Double) //in meters, (min, max)
+    let missDistance: Double //in kilometers
+    let velocity: Double //km per seconds
+    
+}
+
+extension Asteroid: JSONDecodable {
+    init(json: JSON) throws {
+        guard let name = json["name"].string,
+            let hazardous = json["is_potentially_hazardous_asteroid"].bool,
+            let approachDate = json["close_approach_data"]["close_approach_date"].string,
+            let absoluteMagnitude = json["absolute_magnitude_h"].double,
+            let estimetedDiameterMin = json["estimated_diameter"]["kilometers"]["estimated_diameter_min"].double,
+            let estimetedDIameterMax = json["estimated_diameter"]["kilometers"]["estimated_diameter_max"].double,
+            let missDistance = json["close_approach_data"]["miss_distance"]["kilometers"].double,
+            let velocity = json["close_approach_data"]["relative_velocity"]["kilometers_per_second"].double else {
+                
+            throw NASAPPError.NoDecodable("At least one of the properties in not decodable, be sure the decoding pattern matches to the API schema")
+        }
+        
+        self.name = name
+        self.hazardous = hazardous
+        self.approachDate = approachDate
+        self.absoluteMagnitude = absoluteMagnitude
+        self.estimetedDiameter = (estimetedDiameterMin, estimetedDIameterMax)
+        self.missDistance = missDistance
+        self.velocity = velocity
+    }
+}
+
