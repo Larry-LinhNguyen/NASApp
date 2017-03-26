@@ -11,13 +11,11 @@ import AlamofireImage
 
 class LandingTableViewController: UITableViewController {
     
-    let imageCache = AutoPurgingImageCache()
-    
-    var daily = Daily()
+    var daily: Daily?
     
     override func viewWillAppear(_ animated: Bool) {
         fetchingDaily()
-        fetchingAsteroids()
+        //fetchingAsteroids()
     }
 
     override func viewDidLoad() {
@@ -114,7 +112,7 @@ class LandingTableViewController: UITableViewController {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "showDaily" {
-            if (self.daily.image == nil || self.daily.title == nil || self.daily.explanation == nil) {
+            if (self.daily?.image == nil || self.daily?.title == nil || self.daily?.explanation == nil) {
                 displayAlert(title: "Fetching Data", message: "We are moving the satellites for you, retry in a moment!")
                 return false
             }
@@ -128,25 +126,13 @@ class LandingTableViewController: UITableViewController {
     func fetchingDaily() {
         NetworkManager.fetchDaily {json in
             //print(json)
-            let imageULR = json["url"].stringValue
             
-            self.daily.title = json["title"].stringValue
-            self.daily.explanation = json["explanation"].stringValue
-            
-            // Fetch the image cache
-            let id = self.getDate()
-            
-            if let cachedImage = self.imageCache.image(for: URLRequest(url: URL(string: imageULR)!), withIdentifier: id) {
-                print("daily image fetched from the cache")
-                self.daily.image = cachedImage
-            } else {
-                NetworkManager.fetchImage(url: imageULR, withIdentifier: id, completion: { image in
-                    // Add to the cache
-                    print("daily image added to the cache")
-                    self.imageCache.add(image, for: URLRequest(url: URL(string: imageULR)!), withIdentifier: id)
-                    self.daily.image = image
-                })
+            do {
+                try self.daily = Daily(json: json)
+            } catch  let error {
+                self.displayAlert(title: "Error", message: "\(error)")
             }
+            
         }
     }
     

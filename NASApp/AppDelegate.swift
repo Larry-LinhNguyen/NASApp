@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import AlamofireImage
+
+let imageCache = AutoPurgingImageCache()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
