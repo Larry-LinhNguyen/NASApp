@@ -31,6 +31,7 @@ class NetworkManager {
             case .success(let value):
                 let json = JSON(value)
                 completion(json)
+                print("Daily data downloaded")
                 //print("JSON: \(json)")
             case .failure(let error):
                 print(error)
@@ -43,7 +44,6 @@ class NetworkManager {
             switch response.result {
             case .success(let value):
                 completion(value)
-                
             case .failure(let error):
                 print(error)
             }
@@ -68,7 +68,8 @@ class NetworkManager {
             case .success(let value):
                 let json = JSON(value)
                 completion(json)
-            //print("JSON: \(json)")
+                print("Asteroids data downloaded")
+                //print("JSON: \(json)")
             case .failure(let error):
                 print(error)
             }
