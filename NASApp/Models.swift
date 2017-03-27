@@ -121,3 +121,42 @@ struct Location {
     var longitude: Double
 }
 
+class EarthLocationData: JSONDecodable {
+    var imageURL: String
+    var id: String
+    var image: UIImage?
+    
+    init(withId id: String, imageURL: String) {
+        self.id = id
+        self.imageURL = imageURL
+        
+        getImage(withURL: self.imageURL, withID: self.id)
+    }
+    
+    required convenience init(json: JSON) throws {
+        guard let id = json["id"].string,
+            let imageURL = json["url"].string else {
+                
+                throw NASAPPError.NoDecodable("At least one of the properties in not decodable, be sure the decoding pattern matches to the API schema")
+        }
+        
+        self.init(withId: id, imageURL: imageURL)
+    }
+}
+
+extension EarthLocationData {
+    func getImage(withURL url: String, withID id:String) {
+        if let cachedImage = imageCache.image(for: URLRequest(url: URL(string: url)!), withIdentifier: id) {
+            print("earth location image fetched from the cache")
+            self.image =  cachedImage
+        } else {
+            NetworkManager.fetchImage(url: url, withIdentifier: id, completion: { image in
+                // Add to the cache
+                print("earth location image added to the cache")
+                imageCache.add(image, for: URLRequest(url: URL(string: url)!), withIdentifier: id)
+                self.image = image
+            })
+        }
+    }
+}
+

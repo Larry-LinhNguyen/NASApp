@@ -7,15 +7,35 @@
 //
 
 import UIKit
+import MapKit
 
 class EarthSearcherTableViewController: UITableViewController {
-
+    
+    // MARK: - Variables
+    
+    var searchController: UISearchController!
+    let locationManager = LocationManager()
+    var locations: [MKMapItem] = []
+    var locationToRequest: CLLocation?
+    var earthLocationData: EarthLocationData? {
+        didSet {
+            self.imageView.image = earthLocationData!.image
+        }
+    }
+    
+    // MARK: - Outlets
+    
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "CurrentLocation"), style: .plain, target: self, action: #selector(eyeOnCurrentLocation))
+        mapView.isHidden = true
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "CurrentLocation"), style: .plain, target: self, action: #selector(zoomToCurrentLocation))
+        
+        configureSearchController()
 
     }
 
@@ -33,53 +53,33 @@ class EarthSearcherTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return locations.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let location = locations[indexPath.row].placemark
+        cell.textLabel?.text = location.name
+        cell.detailTextLabel?.text = locationManager.parseAddress(location: location)
+        
         return cell
     }
-    */
+    
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        searchController.searchBar.endEditing(true)
+        
+        let selectedLocation = locations[indexPath.row].placemark
+        locationManager.dropPinZoomIn(placemark: selectedLocation, mapView: self.mapView)
+        print(selectedLocation.coordinate)
+        print(selectedLocation.name!)
+        
+        locationToRequest = CLLocation(latitude: selectedLocation.coordinate.latitude, longitude: selectedLocation.coordinate.longitude)
+        fetchingEarthLocationData()
+        
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
@@ -93,8 +93,119 @@ class EarthSearcherTableViewController: UITableViewController {
     
     // MARK: - Functions
     
-    func eyeOnCurrentLocation() {
-        print("Moving satellites on current Location")
+    
+    func configureSearchController() {
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchBar.sizeToFit()
+        searchController.searchBar.placeholder = "Search or Enter Address"
+        searchController.searchBar.showsCancelButton = true
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .normal)
+        tableView.tableHeaderView = searchController.searchBar
+        self.definesPresentationContext = true
+        
+    }
+    
+    func fetchingEarthLocationData() {
+        guard let coordinates = locationToRequest?.coordinate else {
+            showDataUnaviableAlert()
+            return
+        }
+        NetworkManager.fetchEarthLocation(withCoordinates: coordinates) {json in
+            do {
+                try self.earthLocationData = EarthLocationData(json: json)
+                
+            } catch  let error {
+                self.displayAlert(title: "Error", message: "\(error)")
+            }
+            
+        }
+        
+        
+    }
+    
+    /**This func will display an Alert */
+    func displayAlert(title: String, message: String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(action)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func showDataUnaviableAlert() {
+        displayAlert(title: "Fetching Data", message: "We are moving the satellites for you, retry in a moment!")
     }
 
 }
+
+extension EarthSearcherTableViewController : UISearchResultsUpdating {
+
+    public func updateSearchResults(for searchController: UISearchController) {
+        //Code
+        guard let text = searchController.searchBar.text else { return }
+        
+        self.getLocations(forSearchString: text)
+    }
+    
+    fileprivate func getLocations(forSearchString searchString: String) {
+        
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery = searchString
+        request.region = mapView.region
+        
+        let search = MKLocalSearch(request: request)
+        search.start { (response, error) in
+            
+            guard let response = response else { return }
+            self.locations = response.mapItems
+            self.tableView.reloadData()
+        }
+    }
+    
+    @objc func zoomToCurrentLocation() {
+        
+        
+        //Clear existing pins
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.removeOverlays(mapView.overlays)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = mapView.userLocation.coordinate
+        mapView.addAnnotation(annotation)
+        
+        let span = MKCoordinateSpanMake(0.005, 0.005)
+        let region = MKCoordinateRegionMake(mapView.userLocation.coordinate, span)
+        mapView.setRegion(region, animated: true)
+        
+        let location = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
+        mapView.add(MKCircle(center: location.coordinate, radius: 50))
+        
+        locationToRequest = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
+        fetchingEarthLocationData()
+    }
+
+}
+
+
+extension EarthSearcherTableViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKCircle {
+            let circleRenderer = MKCircleRenderer(overlay: overlay)
+            circleRenderer.lineWidth = 2.0
+            circleRenderer.strokeColor = .purple
+            circleRenderer.fillColor = UIColor.purple.withAlphaComponent(0.4)
+            return circleRenderer
+        }
+        return MKOverlayRenderer(overlay: overlay)
+    }
+    
+}
+
+extension EarthSearcherTableViewController: UISearchBarDelegate {}

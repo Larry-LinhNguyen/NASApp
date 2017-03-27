@@ -66,7 +66,7 @@ class LandingTableViewController: UITableViewController {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "showDaily" {
             if (self.daily?.image == nil || self.daily?.title == nil || self.daily?.explanation == nil) {
-                ShowDataUnaviableAlert()
+                showDataUnaviableAlert()
                 return false
             }
             return true
@@ -74,7 +74,7 @@ class LandingTableViewController: UITableViewController {
         
         if identifier == "showCollisions" {
             if (self.asteroids.count < 1) {
-                ShowDataUnaviableAlert()
+                showDataUnaviableAlert()
                 return false
             }
             return true
@@ -135,7 +135,7 @@ class LandingTableViewController: UITableViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    func ShowDataUnaviableAlert() {
+    func showDataUnaviableAlert() {
         displayAlert(title: "Fetching Data", message: "We are moving the satellites for you, retry in a moment!")
     }
 

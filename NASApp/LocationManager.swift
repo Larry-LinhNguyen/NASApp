@@ -12,37 +12,36 @@ import MapKit
 
 class LocationManager: NSObject {
     
-    //---------------------
-    //MARK: Variables
-    //---------------------
+    //MARK: - Variables
+
     let manager = CLLocationManager()
     let geoCoder = CLGeocoder()
     var onLocationFix: ((CLPlacemark?, Error?) -> Void)?
     
+    
     //---------------------
-    //MARK: Init
+    //MARK: - Init
     //---------------------
     override init() {
         super.init()
         
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.allowsBackgroundLocationUpdates = true
+        
         
         //Get location permission
         getPermission()
+        
+        manager.requestLocation()
     }
     
-    //---------------------
-    //MARK: Functions
-    //---------------------
-    
+    //MARK: - Functions
+
     //Ask user permission for location
     fileprivate func getPermission() {
         
         if CLLocationManager.authorizationStatus() == .notDetermined {
-            //manager.requestWhenInUseAuthorization()
-            manager.requestAlwaysAuthorization()
+            manager.requestWhenInUseAuthorization()
         }
     }
     
@@ -107,17 +106,15 @@ class LocationManager: NSObject {
     }
 }
 
-//---------------------
 //MARK: Extension
-//---------------------
+
 extension LocationManager: CLLocationManagerDelegate {
     
-    //------------------------
     //MARK: Location Delegate
-    //------------------------
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
-        if status == .authorizedAlways {
+        if status == .authorizedWhenInUse {
             manager.requestLocation()
         }
     }
@@ -126,12 +123,16 @@ extension LocationManager: CLLocationManagerDelegate {
         
         guard let location = locations.first else { return }
         
+        print("location: \(location)")
+        
+        /*
         geoCoder.reverseGeocodeLocation(location) { placemarks, error in
             
             if let onLocationFix = self.onLocationFix {
                 onLocationFix(placemarks?.first, error)
             }
         }
+        */
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

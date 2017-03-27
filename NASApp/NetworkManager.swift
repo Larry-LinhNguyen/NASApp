@@ -11,6 +11,7 @@ import Alamofire
 import SwiftyJSON
 import UIKit
 import AlamofireImage
+import CoreLocation
 
 class NetworkManager {
     
@@ -70,6 +71,26 @@ class NetworkManager {
                 completion(json)
                 print("Asteroids data downloaded")
                 //print("JSON: \(json)")
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    
+    class func fetchEarthLocation(withCoordinates coordinates: CLLocationCoordinate2D, completion: @escaping (JSON) -> ()) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let date = formatter.string(from: Date())
+        let url = "\(base_url)planetary/earth/imagery?lon=\(coordinates.longitude)&lat=\(coordinates.latitude)&date=\(date)&cloud_score=True&api_key=\(apy_key)"
+        
+        Alamofire.request(url, method: .get).validate().responseJSON{ response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                completion(json)
+                print("Earth Location data data downloaded")
+            //print("JSON: \(json)")
             case .failure(let error):
                 print(error)
             }
