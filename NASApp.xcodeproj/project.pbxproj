@@ -19,7 +19,9 @@
 		013BB8C01E7FE151006682D5 /* NASAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8BF1E7FE151006682D5 /* NASAppTests.swift */; };
 		013BB8CB1E7FE151006682D5 /* NASAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BB8CA1E7FE151006682D5 /* NASAppUITests.swift */; };
 		013BB8D91E803DF3006682D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013BB8D81E803DF3006682D5 /* Assets.xcassets */; };
-		0185F1AB1E896466006EAA18 /* AsteroidDetialsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F1AA1E896466006EAA18 /* AsteroidDetialsTableViewController.swift */; };
+		0185F1AB1E896466006EAA18 /* AsteroidDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F1AA1E896466006EAA18 /* AsteroidDetailsTableViewController.swift */; };
+		0185F1AD1E89716B006EAA18 /* EarthSearcherTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F1AC1E89716B006EAA18 /* EarthSearcherTableViewController.swift */; };
+		0185F1AF1E8972D4006EAA18 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F1AE1E8972D4006EAA18 /* LocationManager.swift */; };
 		01AF109A1E83C7FE009A555C /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AF10981E83C7FE009A555C /* Alamofire.framework */; };
 		01AF109B1E83C7FE009A555C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AF10991E83C7FE009A555C /* SwiftyJSON.framework */; };
 		01D474461E88228000D90C81 /* CollisionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D474451E88228000D90C81 /* CollisionTableViewCell.swift */; };
@@ -61,7 +63,9 @@
 		013BB8CA1E7FE151006682D5 /* NASAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASAppUITests.swift; sourceTree = "<group>"; };
 		013BB8CC1E7FE151006682D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		013BB8D81E803DF3006682D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0185F1AA1E896466006EAA18 /* AsteroidDetialsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsteroidDetialsTableViewController.swift; sourceTree = "<group>"; };
+		0185F1AA1E896466006EAA18 /* AsteroidDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsteroidDetailsTableViewController.swift; sourceTree = "<group>"; };
+		0185F1AC1E89716B006EAA18 /* EarthSearcherTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EarthSearcherTableViewController.swift; sourceTree = "<group>"; };
+		0185F1AE1E8972D4006EAA18 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		01AF10981E83C7FE009A555C /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		01AF10991E83C7FE009A555C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		01D474451E88228000D90C81 /* CollisionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionTableViewCell.swift; sourceTree = "<group>"; };
@@ -172,7 +176,8 @@
 				01D474451E88228000D90C81 /* CollisionTableViewCell.swift */,
 				011F547E1E83D1C400174326 /* DailyTableViewController.swift */,
 				011F548C1E8425F000174326 /* CollisionEventsTableViewController.swift */,
-				0185F1AA1E896466006EAA18 /* AsteroidDetialsTableViewController.swift */,
+				0185F1AA1E896466006EAA18 /* AsteroidDetailsTableViewController.swift */,
+				0185F1AC1E89716B006EAA18 /* EarthSearcherTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -181,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				011F54801E83DD7F00174326 /* NetworkManager.swift */,
+				0185F1AE1E8972D4006EAA18 /* LocationManager.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -353,9 +359,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				011F54811E83DD7F00174326 /* NetworkManager.swift in Sources */,
+				0185F1AD1E89716B006EAA18 /* EarthSearcherTableViewController.swift in Sources */,
+				0185F1AF1E8972D4006EAA18 /* LocationManager.swift in Sources */,
 				011F547D1E83CC8300174326 /* LandingTableViewController.swift in Sources */,
 				013BB8AB1E7FE151006682D5 /* AppDelegate.swift in Sources */,
-				0185F1AB1E896466006EAA18 /* AsteroidDetialsTableViewController.swift in Sources */,
+				0185F1AB1E896466006EAA18 /* AsteroidDetailsTableViewController.swift in Sources */,
 				01D474461E88228000D90C81 /* CollisionTableViewCell.swift in Sources */,
 				011F547F1E83D1C400174326 /* DailyTableViewController.swift in Sources */,
 				011F54851E83E37100174326 /* Models.swift in Sources */,

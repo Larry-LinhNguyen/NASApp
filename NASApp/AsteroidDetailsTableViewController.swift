@@ -1,5 +1,5 @@
 //
-//  AsteroidDetialsTableViewController.swift
+//  AsteroidDetailsTableViewController.swift
 //  NASApp
 //
 //  Created by Andrea Miotto on 27/03/17.

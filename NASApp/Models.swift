@@ -115,3 +115,9 @@ extension Asteroid: JSONDecodable {
     }
 }
 
+
+struct Location {
+    var latitude: Double
+    var longitude: Double
+}
+
