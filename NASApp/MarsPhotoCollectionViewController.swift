@@ -105,7 +105,7 @@ class MarsPhotoCollectionViewController: UICollectionViewController, UICollectio
             if let indexPath = self.collectionView?.indexPathsForSelectedItems {
                 if let nextVC = segue.destination as? ImageViewController {
                     let index = indexPath[0]
-                    nextVC.imageView.image = self.images[index.row]
+                    nextVC.image = self.images[index.row]
                 }
             }
             
