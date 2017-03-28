@@ -356,18 +356,12 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="v8H-IM-w7k">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="kvT-8m-HLu">
                             <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VPA-Y3-WBk">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="400" id="Pxd-e2-iva"/>
-                                    </constraints>
-                                </imageView>
-                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-5d-MrG">
+                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="satellite" showsUserLocation="YES" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-5d-MrG">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="500" id="T88-uc-Hh6"/>
@@ -377,14 +371,11 @@
                                     </connections>
                                 </mapView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="w8s-5d-MrG" secondAttribute="trailing" id="VHL-v6-xoA"/>
-                                <constraint firstAttribute="trailing" secondItem="VPA-Y3-WBk" secondAttribute="trailing" id="Vqq-1f-DbM"/>
                                 <constraint firstItem="w8s-5d-MrG" firstAttribute="top" secondItem="kvT-8m-HLu" secondAttribute="top" id="cCN-nk-9QB"/>
-                                <constraint firstItem="VPA-Y3-WBk" firstAttribute="top" secondItem="kvT-8m-HLu" secondAttribute="top" id="nkZ-Bm-Jnc"/>
                                 <constraint firstItem="w8s-5d-MrG" firstAttribute="leading" secondItem="kvT-8m-HLu" secondAttribute="leading" id="tmD-Jt-9tA"/>
-                                <constraint firstItem="VPA-Y3-WBk" firstAttribute="leading" secondItem="kvT-8m-HLu" secondAttribute="leading" id="z7n-zV-RQv"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -396,21 +387,22 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SI8-a3-Ief">
-                                            <rect key="frame" x="15" y="4" width="34" height="21"/>
+                                            <rect key="frame" x="15" y="4" width="49" height="19"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mox-sI-Bdr">
-                                            <rect key="frame" x="15" y="25" width="44" height="15"/>
+                                            <rect key="frame" x="15" y="23" width="68" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -419,7 +411,6 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="imageView" destination="VPA-Y3-WBk" id="zxv-9O-Pou"/>
                         <outlet property="mapView" destination="w8s-5d-MrG" id="5Ge-RJ-51B"/>
                     </connections>
                 </tableViewController>

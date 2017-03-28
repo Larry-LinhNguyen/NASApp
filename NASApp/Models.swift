@@ -130,7 +130,7 @@ class EarthLocationData: JSONDecodable {
         self.id = id
         self.imageURL = imageURL
         
-        getImage(withURL: self.imageURL, withID: self.id)
+        
     }
     
     required convenience init(json: JSON) throws {
@@ -141,22 +141,6 @@ class EarthLocationData: JSONDecodable {
         }
         
         self.init(withId: id, imageURL: imageURL)
-    }
-}
-
-extension EarthLocationData {
-    func getImage(withURL url: String, withID id:String) {
-        if let cachedImage = imageCache.image(for: URLRequest(url: URL(string: url)!), withIdentifier: id) {
-            print("earth location image fetched from the cache")
-            self.image =  cachedImage
-        } else {
-            NetworkManager.fetchImage(url: url, withIdentifier: id, completion: { image in
-                // Add to the cache
-                print("earth location image added to the cache")
-                imageCache.add(image, for: URLRequest(url: URL(string: url)!), withIdentifier: id)
-                self.image = image
-            })
-        }
     }
 }
 

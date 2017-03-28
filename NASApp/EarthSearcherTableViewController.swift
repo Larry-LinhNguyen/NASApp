@@ -16,22 +16,16 @@ class EarthSearcherTableViewController: UITableViewController {
     var searchController: UISearchController!
     let locationManager = LocationManager()
     var locations: [MKMapItem] = []
-    var locationToRequest: CLLocation?
-    var earthLocationData: EarthLocationData? {
-        didSet {
-            self.imageView.image = earthLocationData!.image
-        }
-    }
+    var earthLocationData: EarthLocationData?
     
     // MARK: - Outlets
     
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.isHidden = true
+        mapView.isHidden = false
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "CurrentLocation"), style: .plain, target: self, action: #selector(zoomToCurrentLocation))
         
@@ -76,9 +70,6 @@ class EarthSearcherTableViewController: UITableViewController {
         print(selectedLocation.coordinate)
         print(selectedLocation.name!)
         
-        locationToRequest = CLLocation(latitude: selectedLocation.coordinate.latitude, longitude: selectedLocation.coordinate.longitude)
-        fetchingEarthLocationData()
-        
     }
 
     /*
@@ -110,23 +101,6 @@ class EarthSearcherTableViewController: UITableViewController {
         
     }
     
-    func fetchingEarthLocationData() {
-        guard let coordinates = locationToRequest?.coordinate else {
-            showDataUnaviableAlert()
-            return
-        }
-        NetworkManager.fetchEarthLocation(withCoordinates: coordinates) {json in
-            do {
-                try self.earthLocationData = EarthLocationData(json: json)
-                
-            } catch  let error {
-                self.displayAlert(title: "Error", message: "\(error)")
-            }
-            
-        }
-        
-        
-    }
     
     /**This func will display an Alert */
     func displayAlert(title: String, message: String) {
@@ -186,8 +160,7 @@ extension EarthSearcherTableViewController : UISearchResultsUpdating {
         let location = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
         mapView.add(MKCircle(center: location.coordinate, radius: 50))
         
-        locationToRequest = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
-        fetchingEarthLocationData()
+       
     }
 
 }
