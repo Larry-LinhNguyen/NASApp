@@ -144,3 +144,10 @@ class EarthLocationData: JSONDecodable {
     }
 }
 
+
+enum Rover {
+    case curiosity
+    case opportunity
+    case spirit
+}
+
