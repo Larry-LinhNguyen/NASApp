@@ -76,6 +76,26 @@ class NetworkManager {
             }
         }
     }
+    
+    class func fetchRoversPhotos(rover: Rover, sol: Int, completion: @escaping (Rover, JSON) -> ()) {
+        
+        
+        //ht/api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY
+        //Setting the url for the request
+        let url = "\(base_url)mars-photos/api/v1/rovers/\(rover.rawValue)/photos?sol=\(sol)&api_key=\(apy_key)"
+        //Making the request
+        Alamofire.request(url, method: .get).validate().responseJSON{ response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                completion(rover, json)
+                print("items for \(rover.rawValue) have been downloaded")
+            //print("JSON: \(json)")
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 
     
 }

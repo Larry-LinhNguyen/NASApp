@@ -8,19 +8,23 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "roverItem"
 
-class MarsPhotoCollectionViewController: UICollectionViewController {
+class MarsPhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var selectedRover: Rover?
+    var roverItems: [RoverItem]? {
+        didSet {
+            self.fetchImages()
+        }
+    }
+    var images: [UIImage] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "\(selectedRover!.rawValue.capitalized)'s photos"
 
-        print("\(String(describing: selectedRover))")
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
@@ -28,6 +32,28 @@ class MarsPhotoCollectionViewController: UICollectionViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func fetchImages() {
+        for item in self.roverItems! {
+            getImage(withURL: item.imageURL , withID: item.id)
+        }
+    }
+    
+    func getImage(withURL url: String, withID id:String) {
+        if let cachedImage = imageCache.image(for: URLRequest(url: URL(string: url)!), withIdentifier: id) {
+            print("daily image fetched from the cache")
+            self.images.append(cachedImage)
+            self.collectionView?.reloadData()
+        } else {
+            NetworkManager.fetchImage(url: url, withIdentifier: id, completion: { image in
+                // Add to the cache
+                print("daily image added to the cache")
+                imageCache.add(image, for: URLRequest(url: URL(string: url)!), withIdentifier: id)
+                self.images.append(image)
+                self.collectionView?.reloadData()
+            })
+        }
     }
 
     /*
@@ -43,53 +69,50 @@ class MarsPhotoCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return images.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RoverItemCollectionViewCell
     
-        // Configure the cell
     
+        cell.imageView.image = images[indexPath.row]
         return cell
     }
 
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+    // MARK: UICollectionViewDelegateFlowLayout
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = (self.view.frame.width/3)-5
+        return CGSize(width: size, height: size)
     }
-    */
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //presentImage(image: self.images[indexPath.row])
+    }
+    
+    
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showImage" {
+            if let indexPath = self.collectionView?.indexPathsForSelectedItems {
+                if let nextVC = segue.destination as? ImageViewController {
+                    let index = indexPath[0]
+                    nextVC.imageView.image = self.images[index.row]
+                }
+            }
+            
+            
+            
+        }
+    }
 
+    
 }

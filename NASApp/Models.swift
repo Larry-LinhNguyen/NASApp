@@ -139,15 +139,36 @@ class EarthLocationData: JSONDecodable {
                 
                 throw NASAPPError.NoDecodable("At least one of the properties in not decodable, be sure the decoding pattern matches to the API schema")
         }
-        
         self.init(withId: id, imageURL: imageURL)
     }
 }
 
 
-enum Rover {
-    case curiosity
-    case opportunity
-    case spirit
+enum Rover: String {
+    case curiosity = "curiosity"
+    case opportunity = "opportunity"
+    case spirit = "spirit"
 }
+
+
+class RoverItem {
+    var id: String
+    var imageURL: String
+    
+    init(withId id: String, imageURL url: String) {
+        self.id = id
+        self.imageURL = url
+    }
+    
+    required convenience init(json: JSON) throws {
+        guard let id = json["id"].int,
+            let imageURL = json["img_src"].string else {
+                
+                throw NASAPPError.NoDecodable("At least one of the properties in not decodable, be sure the decoding pattern matches to the API schema")
+        }
+        self.init(withId: "\(id)", imageURL: imageURL)
+    }
+}
+
+
 
