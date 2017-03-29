@@ -10,7 +10,16 @@ import UIKit
 
 class CollisionEventsTableViewController: UITableViewController {
     
+    //----------------------
+    // MARK: - Variables
+    //----------------------
+    
+    ///It keeps track of the asteroids
     var asteroids : [Asteroid] = []
+    
+    //----------------------
+    // MARK: - View Fuctions
+    //----------------------
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +30,27 @@ class CollisionEventsTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //----------------------
+    // MARK: - Methods
+    //----------------------
+    
+    /**This func will style the cell prperly */
+    func configureCell(cell: CollisionTableViewCell, withEntry entry: Asteroid) {
+        
+        //setting the easy stuff
+        cell.nameLabel.text = entry.name
+        cell.dateLabel.text = entry.approachDate
+        if !entry.hazardous {
+            cell.hazardousLabel.isHidden = true
+        } else {
+            cell.hazardousLabel.isHidden = false
+        }
+    }
 
+    //----------------------
     // MARK: - Table view data source
+    //----------------------
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -53,7 +81,9 @@ class CollisionEventsTableViewController: UITableViewController {
     }
 
     
+    //----------------------
     // MARK: - Navigation
+    //----------------------
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAsteroid" {
@@ -65,20 +95,4 @@ class CollisionEventsTableViewController: UITableViewController {
             
         }
     }
-    
-    
-    
-    /**This func will style the cell prperly */
-    func configureCell(cell: CollisionTableViewCell, withEntry entry: Asteroid) {
-        
-        //setting the easy stuff
-        cell.nameLabel.text = entry.name
-        cell.dateLabel.text = entry.approachDate
-        if !entry.hazardous {
-            cell.hazardousLabel.isHidden = true
-        } else {
-            cell.hazardousLabel.isHidden = false
-        }
-    }
-
 }
