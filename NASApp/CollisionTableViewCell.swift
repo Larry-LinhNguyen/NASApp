@@ -9,10 +9,18 @@
 import UIKit
 
 class CollisionTableViewCell: UITableViewCell {
+    
+    //----------------------
+    // MARK: - Outlets
+    //----------------------
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var hazardousLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    
+    //----------------------
+    // MARK: - View Methods
+    //----------------------
     
     
     override func awakeFromNib() {
