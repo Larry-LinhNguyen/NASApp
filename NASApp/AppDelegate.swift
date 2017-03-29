@@ -9,6 +9,7 @@
 import UIKit
 import AlamofireImage
 
+/** Declared in the **AppDelegate**, this is the cache for images */
 let imageCache = AutoPurgingImageCache()
 
 @UIApplicationMain
