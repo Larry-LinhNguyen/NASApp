@@ -11,13 +11,24 @@ import Alamofire
 
 class DailyTableViewController: UITableViewController {
     
+    //----------------------
+    // MARK: - Variables
+    //----------------------
+    
+    /** It keep track of the daily*/
     var daily: Daily?
     
- 
+    //----------------------
+    // MARK: - Outlets
+    //----------------------
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var explanationLabel: UILabel!
+    
+    //----------------------
+    // MARK: - View Functions
+    //----------------------
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +40,21 @@ class DailyTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //----------------------
+    // MARK: - Methods
+    //----------------------
+    
+    ///It updates the layout with the right info
+    func setLayout() {
+        self.titleLabel.text = daily?.title
+        self.imageView.image = daily?.image
+        self.explanationLabel.text = daily?.explanation
+    }
 
-    // MARK: - TABALE VIEW DATA SOURCE
+    //----------------------
+    // MARK: - Table view data source
+    //----------------------
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -46,14 +70,6 @@ class DailyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
-    }
-    
-    // MARK: - Methods
-    
-    func setLayout() {
-        self.titleLabel.text = daily?.title
-        self.imageView.image = daily?.image
-        self.explanationLabel.text = daily?.explanation
     }
 
 }
