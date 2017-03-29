@@ -10,7 +10,15 @@ import UIKit
 
 class RoversTableViewController: UITableViewController {
     
+    //----------------------
+    // MARK: - Variables
+    //----------------------
+    
     var roverItemsCollection: ([RoverItem], [RoverItem], [RoverItem]) = ([],[],[])
+    
+    //----------------------
+    // MARK: - View Functions
+    //----------------------
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +33,9 @@ class RoversTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    //----------------------
     // MARK: - Table view data source
+    //----------------------
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -36,7 +46,9 @@ class RoversTableViewController: UITableViewController {
     }
 
     
+    //----------------------
     // MARK: - Navigation
+    //----------------------
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = self.tableView.indexPathForSelectedRow {
@@ -57,17 +69,33 @@ class RoversTableViewController: UITableViewController {
         }
     }
     
+    //----------------------
+    // MARK: - Methods
+    //----------------------
     
+    ///func that fetch items for all the rovers
+    func fetchingForAllRovers() {
+        self.fetchingRoverItems(rover: Rover.curiosity)
+        self.fetchingRoverItems(rover: Rover.opportunity)
+        self.fetchingRoverItems(rover: Rover.spirit)
+    }
+    
+    ///func tht fetch the items for the selected rover
     func fetchingRoverItems(rover: Rover) {
+        
         //FIXME: - "Sol" should not be hardocoded
-        /* for this mvp implementation the sol is hardcoded, in the future
-            the user will have to possibility to choose the sol */
+        
+        /* ------------
+         for this mvp implementation the sol is hardcoded, in the future
+         the user will have the possibility to choose the sol */
         var sol = 0
         switch rover {
         case .curiosity: sol = 1634
         case .opportunity: sol = 4650
         case .spirit: sol = 500
         }
+        /* ------------ */
+        
         NetworkManager.fetchRoversPhotos(rover: rover, sol: sol) {rover, json in
             for roverItem in json["photos"] {
                 do {
@@ -85,10 +113,12 @@ class RoversTableViewController: UITableViewController {
         }
     }
     
-    func fetchingForAllRovers() { 
-        self.fetchingRoverItems(rover: Rover.curiosity)
-        self.fetchingRoverItems(rover: Rover.opportunity)
-        self.fetchingRoverItems(rover: Rover.spirit)
+    //----------------------
+    // MARK: - Helpers
+    //----------------------
+    
+    func showDataUnaviableAlert() {
+        displayAlert(title: "Fetching Data", message: "We are moving the satellites for you, retry in a moment!")
     }
     
     /**This func will display an Alert */
@@ -100,9 +130,4 @@ class RoversTableViewController: UITableViewController {
         
         present(alertController, animated: true, completion: nil)
     }
-    
-    func showDataUnaviableAlert() {
-        displayAlert(title: "Fetching Data", message: "We are moving the satellites for you, retry in a moment!")
-    }
-
 }

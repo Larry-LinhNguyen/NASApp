@@ -11,24 +11,31 @@ import MapKit
 
 class EarthSearcherTableViewController: UITableViewController {
     
+    //----------------------
     // MARK: - Variables
+    //----------------------
     
     var searchController: UISearchController!
     let locationManager = LocationManager()
     var locations: [MKMapItem] = []
     var earthLocationData: EarthLocationData?
     
+    //----------------------
     // MARK: - Outlets
+    //----------------------
     
     @IBOutlet weak var mapView: MKMapView!
+    
+    //----------------------
+    // MARK: - View Functions
+    //----------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.isHidden = false
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "CurrentLocation"), style: .plain, target: self, action: #selector(zoomToCurrentLocation))
         
+        //Configure the search controller
         configureSearchController()
 
     }
@@ -37,8 +44,49 @@ class EarthSearcherTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //----------------------
+    // MARK: - Methods
+    //----------------------
+    
+    
+    func configureSearchController() {
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchBar.sizeToFit()
+        searchController.searchBar.placeholder = "Search or Enter Address"
+        searchController.searchBar.showsCancelButton = true
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .normal)
+        tableView.tableHeaderView = searchController.searchBar
+        self.definesPresentationContext = true
+        
+    }
+    
+    //----------------------
+    // MARK: - Helpers
+    //----------------------
+    
+    /**This func will display an Alert */
+    func displayAlert(title: String, message: String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(action)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func showDataUnaviableAlert() {
+        displayAlert(title: "Fetching Data", message: "We are moving the satellites for you, retry in a moment!")
+    }
 
+    //----------------------
     // MARK: - Table view data source
+    //----------------------
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -72,51 +120,11 @@ class EarthSearcherTableViewController: UITableViewController {
         
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    // MARK: - Functions
-    
-    
-    func configureSearchController() {
-        
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.delegate = self
-        searchController.searchBar.sizeToFit()
-        searchController.searchBar.placeholder = "Search or Enter Address"
-        searchController.searchBar.showsCancelButton = true
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .normal)
-        tableView.tableHeaderView = searchController.searchBar
-        self.definesPresentationContext = true
-        
-    }
-    
-    
-    /**This func will display an Alert */
-    func displayAlert(title: String, message: String) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(action)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func showDataUnaviableAlert() {
-        displayAlert(title: "Fetching Data", message: "We are moving the satellites for you, retry in a moment!")
-    }
-
 }
+
+//----------------------
+// MARK: - Extension UISearchResultsUpdating
+//----------------------
 
 extension EarthSearcherTableViewController : UISearchResultsUpdating {
 
@@ -165,6 +173,10 @@ extension EarthSearcherTableViewController : UISearchResultsUpdating {
 
 }
 
+//----------------------
+// MARK: - Extension MKMapViewDelegate
+//----------------------
+
 
 extension EarthSearcherTableViewController: MKMapViewDelegate {
     
@@ -181,4 +193,14 @@ extension EarthSearcherTableViewController: MKMapViewDelegate {
     
 }
 
+//----------------------
+// MARK: - Extension UISearchBarDelegate
+//----------------------
+
 extension EarthSearcherTableViewController: UISearchBarDelegate {}
+
+
+
+
+
+

@@ -8,25 +8,36 @@
 
 import UIKit
 
+/** the cell identifier */
 private let reuseIdentifier = "roverItem"
 
 class MarsPhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    //----------------------
+    // MARK: - Variables
+    //----------------------
+    
+    ///It keeps track of the selected rover
     var selectedRover: Rover?
+    
+    ///It keeps track of the items for the selected rover
     var roverItems: [RoverItem]? {
         didSet {
             self.fetchImages()
         }
     }
+    
+    ///The images to print out
     var images: [UIImage] = []
+    
+    //----------------------
+    // MARK: - View Functions
+    //----------------------
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "\(selectedRover!.rawValue.capitalized)'s photos"
-
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,12 +45,19 @@ class MarsPhotoCollectionViewController: UICollectionViewController, UICollectio
         // Dispose of any resources that can be recreated.
     }
     
+    //----------------------
+    // MARK: - Methods
+    //----------------------
+    
+    
+    ///func the fetches the images from the web for each rover item
     func fetchImages() {
         for item in self.roverItems! {
             getImage(withURL: item.imageURL , withID: item.id)
         }
     }
     
+    ///func the fetches the image for one rover item
     func getImage(withURL url: String, withID id:String) {
         if let cachedImage = imageCache.image(for: URLRequest(url: URL(string: url)!), withIdentifier: id) {
             print("daily image fetched from the cache")
@@ -55,18 +73,10 @@ class MarsPhotoCollectionViewController: UICollectionViewController, UICollectio
             })
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
+    
+    //----------------------
+    // MARK: - UICollectionViewDataSource
+    //----------------------
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -85,20 +95,18 @@ class MarsPhotoCollectionViewController: UICollectionViewController, UICollectio
         return cell
     }
 
-    // MARK: UICollectionViewDelegateFlowLayout
+    //----------------------
+    // MARK: - UICollectionViewDelegateFlowLayout
+    //----------------------
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = (self.view.frame.width/3)-5
         return CGSize(width: size, height: size)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //presentImage(image: self.images[indexPath.row])
-    }
-    
-    
-    
-    
+    //----------------------
+    // MARK: - Navigation
+    //----------------------
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showImage" {
