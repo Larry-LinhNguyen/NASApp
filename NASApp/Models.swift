@@ -9,16 +9,19 @@
 import Foundation
 import UIKit
 import SwiftyJSON
-//import AlamofireImage
 
-// MARK: - Protocol
+//----------------------
+// MARK: - Protocols
+//----------------------
 
 /**The JSONDecodable protocol, to which every type has to conform **/
 protocol JSONDecodable {
     init(json: JSON) throws
 }
 
-// MARK: - Errors Type
+//----------------------
+// MARK: - Errors
+//----------------------
 
 enum NASAPPError: Error {
     case NoDecodable(String)
@@ -26,9 +29,9 @@ enum NASAPPError: Error {
 }
 
 
-
-
+//----------------------
 // MARK: - Daily Model
+//----------------------
 
 class Daily: JSONDecodable {
     var imageURL: String
@@ -75,7 +78,9 @@ extension Daily {
 }
 
 
+//----------------------
 // MARK: - Asteroid Model
+//----------------------
 
 
 struct Asteroid {
@@ -115,11 +120,18 @@ extension Asteroid: JSONDecodable {
     }
 }
 
+//----------------------
+// MARK: - Location Model
+//----------------------
 
 struct Location {
     var latitude: Double
     var longitude: Double
 }
+
+//----------------------
+// MARK: - Earth Location Data Model
+//----------------------
 
 class EarthLocationData: JSONDecodable {
     var imageURL: String
@@ -143,12 +155,19 @@ class EarthLocationData: JSONDecodable {
     }
 }
 
+//----------------------
+// MARK: - Rover Enum
+//----------------------
 
 enum Rover: String {
     case curiosity = "curiosity"
     case opportunity = "opportunity"
     case spirit = "spirit"
 }
+
+//----------------------
+// MARK: - Rover Item Model
+//----------------------
 
 
 class RoverItem {
