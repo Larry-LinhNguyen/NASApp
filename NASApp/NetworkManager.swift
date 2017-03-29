@@ -15,14 +15,19 @@ import CoreLocation
 
 class NetworkManager {
     
+    //----------------------
     // MARK: - Properties
+    //----------------------
     
     private static let apy_key = "EYMl6SBRowwaZjUZdhreW2XbO0AqC2VLVycXAZie"
     private static let base_url = "https://api.nasa.gov/"
     static let shared = NetworkManager()
 
     
+    //----------------------
     // MARK: - Connections
+    //----------------------
+    
     class func fetchDaily(completion: @escaping (JSON) -> ()) {
         //Setting the url for the request
         let url = "\(base_url)planetary/apod?api_key=\(apy_key)"
@@ -80,7 +85,6 @@ class NetworkManager {
     class func fetchRoversPhotos(rover: Rover, sol: Int, completion: @escaping (Rover, JSON) -> ()) {
         
         
-        //ht/api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY
         //Setting the url for the request
         let url = "\(base_url)mars-photos/api/v1/rovers/\(rover.rawValue)/photos?sol=\(sol)&api_key=\(apy_key)"
         //Making the request

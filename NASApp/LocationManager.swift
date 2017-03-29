@@ -12,7 +12,9 @@ import MapKit
 
 class LocationManager: NSObject {
     
-    //MARK: - Variables
+    //----------------------
+    // MARK: - Variables
+    //----------------------
 
     let manager = CLLocationManager()
     let geoCoder = CLGeocoder()
@@ -22,6 +24,7 @@ class LocationManager: NSObject {
     //---------------------
     //MARK: - Init
     //---------------------
+    
     override init() {
         super.init()
         
@@ -35,7 +38,9 @@ class LocationManager: NSObject {
         manager.requestLocation()
     }
     
-    //MARK: - Functions
+    //----------------------
+    // MARK: - Functions
+    //----------------------
 
     //Ask user permission for location
     fileprivate func getPermission() {
@@ -45,20 +50,6 @@ class LocationManager: NSObject {
         }
     }
     
-    //Reverse location
-    func reverseLocation(location: Location, completion: @escaping (_ city: String, _ street: String) -> Void) {
-        
-        let locationToReverse = CLLocation(latitude: location.latitude, longitude: location.longitude)
-        
-        self.geoCoder.reverseGeocodeLocation(locationToReverse) { placemarks, error in
-            if let placemark = placemarks?.first {
-                
-                guard let city = placemark.locality, let street = placemark.thoroughfare else { return }
-                
-                completion(city, street)
-            }
-        }
-    }
     
     //Parse location address
     func parseAddress(location: MKPlacemark) -> String {
@@ -85,6 +76,7 @@ class LocationManager: NSObject {
         
         return addressLine
     }
+ 
     
     //Drop pin on the map at the selected location and add overlay
     func dropPinZoomIn(placemark: MKPlacemark, mapView: MKMapView) {
@@ -106,11 +98,15 @@ class LocationManager: NSObject {
     }
 }
 
-//MARK: Extension
+//----------------------
+// MARK: -  Extensions
+//----------------------
 
 extension LocationManager: CLLocationManagerDelegate {
     
-    //MARK: Location Delegate
+    //----------------------
+    // MARK: - Location Delegate
+    //----------------------
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
@@ -124,15 +120,8 @@ extension LocationManager: CLLocationManagerDelegate {
         guard let location = locations.first else { return }
         
         print("location: \(location)")
+  
         
-        /*
-        geoCoder.reverseGeocodeLocation(location) { placemarks, error in
-            
-            if let onLocationFix = self.onLocationFix {
-                onLocationFix(placemarks?.first, error)
-            }
-        }
-        */
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
